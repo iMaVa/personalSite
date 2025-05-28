@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
         modes: {
         repulse: {
             distance: 60,
-            duration: 2,
+            duration: 5,
             speed: 0.2,
         },
         push: {
@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
     },
     particles: {
         number: {
-        value: 50,
+        value: 100,
         density: {
             enable: true,
             area: 900,
@@ -35,8 +35,17 @@ document.addEventListener("DOMContentLoaded", () => {
         },
         color: { value: "#ffffff" },
         shape: { type: "triangle" },
+        rotate: {
+            value: { min: 0, max: 360 },
+            direction: "random",
+            animation: {
+                enable: true,
+                speed: 5,
+                sync: false
+            }
+        },
         opacity: {
-        value: 0.15,
+        value: 0.2,
         random: { enable: true, minimumValue: 0.1 },
         },
         size: {
@@ -58,6 +67,15 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     tsParticles.load("tsparticles", options);
+
+    window.addEventListener("scroll", () => {
+        const canvas = document.querySelector("#tsparticles canvas");
+        if (!canvas) return;
+
+        const maxScroll = 6000;
+        const opacity = Math.max(0, 1 - window.scrollY / maxScroll);
+        canvas.style.opacity = opacity;
+    });
 
     window.addEventListener("load", () => {
     gsap.to("#toptitle", {
@@ -89,4 +107,40 @@ document.addEventListener("DOMContentLoaded", () => {
         ease: "power2.inOut"
     });
     });
+    document.querySelectorAll("a[href^='#']").forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute("href"));
+
+            gsap.to(window, {
+                duration: 1.8,
+                scrollTo: target,
+                ease: "power2.out"
+            });
+        });
+    });
+
+    const sun = document.querySelector(".sunrise");
+
+    window.addEventListener("scroll", () => {
+        const scrollY = window.scrollY;
+        const maxScroll = 5500;
+        const progress = Math.min(scrollY / 5500, 1);
+        const topPercent = 100 - (70 * progress);
+        const opacity = Math.min(progress * 1.2, 0.4);
+        const blur = 100 - (60 * progress);
+
+        sun.style.top = `${topPercent}vh`;
+        sun.style.opacity = opacity;
+        sun.style.filter = `blur(${blur}px)`;
+    });
+    
+    const toggleButton = document.getElementById("toggleEspandi");
+    const extraText = document.getElementById("extraText");
+
+    toggleButton.addEventListener("click", () => {
+        extraText.classList.toggle("expanded");
+        toggleButton.classList.toggle("rotate");
+    });
 });
+
