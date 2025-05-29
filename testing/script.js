@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
             mode: "repulse",
         },
         onClick: {
-            enable: true,
+            enable: false,
             mode: "push",
         },
         resize: true,
@@ -77,6 +77,30 @@ document.addEventListener("DOMContentLoaded", () => {
         canvas.style.opacity = opacity;
     });
 
+    tsParticles.load("tsparticles", options).then((container) => {
+        document.addEventListener("click", (event) => {
+            const tileWrapper = document.getElementById("tile-wrapper");
+            const tileRect = tileWrapper.getBoundingClientRect();
+
+            const x = event.clientX;
+            const y = event.clientY;
+
+            const isInTileWrapper =
+            x >= tileRect.left &&
+            x <= tileRect.right &&
+            y >= tileRect.top &&
+            y <= tileRect.bottom;
+
+            if (!isInTileWrapper) {
+            // Use tsparticles' internal mouse position (already scaled correctly)
+            const pos = container.interactivity.mouse.position;
+            if (pos) {
+                container.particles.push(4, { position: { x: pos.x, y: pos.y } });
+            }
+            }
+        });
+    });
+
     window.addEventListener("load", () => {
     gsap.to("#toptitle", {
         opacity: 1,
@@ -142,5 +166,117 @@ document.addEventListener("DOMContentLoaded", () => {
         extraText.classList.toggle("expanded");
         toggleButton.classList.toggle("rotate");
     });
-});
 
+
+    const piastre = document.getElementById('piastre');
+    const rows = 15;
+    const cols = 15;
+    const tiles = [];
+    const colors = ['orange', 'mediumseagreen', 'purple', 'tomato', '#3498db', 'yellow', 'magenta'];
+    let colorIndex = 0;
+
+    // Create grid and store references
+    for (let row = 0; row < rows; row++) {
+        tiles[row] = [];
+        for (let col = 0; col < cols; col++) {
+            const tile = document.createElement('div');
+            tile.classList.add('tile', 'transparent');
+            tile.dataset.row = row;
+            tile.dataset.col = col;
+            tile.dataset.color = 'transparent';
+            piastre.appendChild(tile);
+            tiles[row][col] = tile;
+        }
+    }
+
+    // Hover effect logic
+    for (let row = 0; row < rows; row++) {
+        for (let col = 0; col < cols; col++) {
+            const tile = tiles[row][col];
+
+            tile.addEventListener("mouseenter", () => {
+                if (tile.dataset.color === "transparent") {
+                    tile.style.backgroundColor = "rgba(255, 255, 255, 0.1)";
+                } else {
+                    tile.style.backgroundColor = "rgba(255, 255, 255, 0.1)";
+                }
+            });
+
+            tile.addEventListener("mouseleave", () => {
+                if (tile.dataset.color === "transparent") {
+                    tile.style.backgroundColor = "transparent";
+                } else {
+                    tile.style.backgroundColor = tile.dataset.color;
+                }
+            });
+        }
+    }
+
+    // Spread animation function
+    function spreadWave(startRow, startCol, targetColor, reverse = false) {
+        const visited = new Set();
+        const queue = [{ row: startRow, col: startCol, step: 0 }];
+
+        function animate() {
+            const nextQueue = [];
+
+            for (const { row, col } of queue) {
+                const key = `${row},${col}`;
+                if (visited.has(key)) continue;
+                if (row < 0 || col < 0 || row >= rows || col >= cols) continue;
+
+                visited.add(key);
+                const tile = tiles[row][col];
+
+                if (reverse && tile.dataset.color !== targetColor) continue;
+                if (!reverse && tile.dataset.color !== 'transparent') continue;
+
+                requestAnimationFrame(() => {
+                    if (reverse) {
+                        tile.style.backgroundColor = 'transparent';
+                        tile.dataset.color = 'transparent';
+                        tile.classList.add('transparent');
+                    } else {
+                        tile.style.backgroundColor = targetColor;
+                        tile.dataset.color = targetColor;
+                        tile.classList.remove('transparent');
+                    }
+                });
+
+                const directions = [
+                    { dr: 1, dc: 0 }, { dr: -1, dc: 0 }, { dr: 0, dc: 1 }, { dr: 0, dc: -1 }
+                ];
+                for (const { dr, dc } of directions) {
+                    nextQueue.push({ row: row + dr, col: col + dc });
+                }
+            }
+
+            if (nextQueue.length) {
+                setTimeout(() => {
+                    queue.length = 0;
+                    queue.push(...nextQueue);
+                    animate();
+                }, 5);
+            }
+        }
+
+        animate();
+    }
+
+    // Click to trigger spread or reverse
+    piastre.addEventListener('click', (e) => {
+        if (!e.target.classList.contains('tile')) return;
+
+        const row = parseInt(e.target.dataset.row);
+        const col = parseInt(e.target.dataset.col);
+        const currentColor = e.target.dataset.color;
+
+        if (currentColor !== 'transparent') {
+            spreadWave(row, col, currentColor, true);
+        } else {
+            const nextColor = colors[colorIndex];
+            spreadWave(row, col, nextColor, false);
+            colorIndex = (colorIndex + 1) % colors.length;
+        }
+    });
+});
