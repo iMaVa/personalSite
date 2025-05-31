@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="it">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Valerio - Capolavoro</title>
+        <link rel="stylesheet" href="style.css"/>
+        <link rel="icon" type="image/png" href="favicon.png"/>
+    </head>
+    <body>
+        <div id="tsparticles"></div>
+        <div class="sunrise"></div>
+        <div class="intro">
+            <div id="toptitle">Hey! sono Valerio</div>
+            <div class="buttons">
+                <a href="#about">Info</a> 
+                <a href="#school">Formazione</a> <!-- Formazione -->
+                <!--<a href="#progetti">Progetti</a>
+                <a href="#contatti">Socials</a>-->
+            </div>
+        </div>
+        <button id="hopButton">&gt;</button>
+        <div>
+            <section id=about>
+                <div id="about-text">
+                    <h1>Informazioni sul sottoscritto:</h1>
+                    <p>
+                        Ciao! Il mio nome è Valerio e sono un grande amante dell'informatica 
+                        e della programmazione. Tutto è iniziato nel <b>2011</b>, quando mio padre
+                        quando comprò a me e a mia sorella una delle <em>console</em> più amate da bambini 
+                        e adulti: <b>la Nintendo Wii</b>. <br>
+                        Ricordo ancora la mia curiosità nel vederlo maneggiare quel telecomando e navigare
+                        tra le varie impostazioni... non capivo come funzionasse tutto, ma mi affascinò tanto. <br>
+                        Ovviamente, al tempo non sapevo nemmeno cosa fossero la <b>programmazione</b>
+                        o <b>l'informatica</b>, ma sono sempre cresciuto in un ambiente dove la tecnologia
+                        era molto presente. 
+                    </p>
+                    <div class="contenitoreEspandi">
+                        <div class="espandicontenuto" id="extraText">
+                            <p>
+                                Crescendo, non ho mai cambiato idea: ho sempre voluto lavorare nell'ambito dell'informatica.
+                                Tuttavia, la vera scintilla si accese nel <b>2020</b>, durante il lockdown, quando tutti
+                                ci siamo trovati senza un vero hobby. Fu allora che iniziai a programmare robot virtuali 
+                                in <b>Python</b>. <br>
+                                Nel corso di questi cinque anni imparai da autodidatta anche <b>Lua</b>,<b>JSON</b>,
+                                <b>SQL</b>, <b>HTML</b>, <b>CSS</b>. 
+                                A scuola ho anche avuto l'occasione di studiare anche <b>C</b> e <b>Assembly x86</b>, 
+                                mentre questa legata al portfolio mi ha avvicinato a <b>JavaScript</b>,uno strumento 
+                                molto utile per la creazione di siti. <br>
+                                <b>Se guardate alla vostra destra, potrete notare una bella finestra interattiva fatta
+                                con JavaScript!</b>
+                            </p>
+                        </div>
+                        <button id="toggleEspandi">&gt;</button>
+                    </div>
+                </div>
+                <div id="tile-wrapper">
+                    <div id="piastre"></div>
+                </div>
+            </section>
+            <section id=school>
+                <div id="school-text">
+                    <h1>Il mio percorso formativo</h1>
+                    <p>
+                        Quando parliamo del mio percorso formativo, non posso nascondere il fatto che sono stato bocciato
+                        nel <b>primo anno</b> di ITIS, subito dopo il COVID, dove non avevo veramente tanta voglia di lavorare o
+                        studiare. 
+                        Nonostante ciò, decisi di proseguire nello stesso ITIS, e fui capace di passare l'anno, venendo solo
+                        rimandato in matematica, esito sicuramente migliore dello scorso. <br>
+                        Sinceramente, nel corso degli anni ho imparato tante cose, ma stavo iniziando veramente ad arrendermi
+                        nel continuare con questa scuola, nonostante i miei voti decenti, perchè prendeva tanta energia senza
+                        veramente migliorare <b>le mie capacità nel campo dell'informatica</b>.
+                        Continuai lo stesso nella speranza di poter fare profitto una volta iniziato il triennio, e fu così!
+                        Infatti, iniziai a comprendere in modo più ampio cose come le funzioni, i cicli e altre cose utili per
+                        la programmazione. Questo include anche linguaggi che pensavo fossero impossibili da imparare, tipo
+                        <b>Assembly x86</b>, linguaggio di basso livello. <br>
+                        Infine, grazie al capolavoro trovai l'ispirazione per poter imparare a programmare in altri linguaggi 
+                        e frameworks in cui io non mi interessai mai.
+                    </p>
+                </div>
+                <div class="scrolling-images">
+                    <div class="image-track">
+                        <img src="/img/img1.png" alt="">
+                        <img src="/img/img2.png" alt="">
+                        <img src="/img/img3.png" alt="">
+                        <img src="/img/img4.png" alt="">
+
+                        <img src="/img/img1.png" alt="">
+                        <img src="/img/img2.png" alt="">
+                        <img src="/img/img3.png" alt="">
+                        <img src="/img/img4.png" alt="">
+                    </div>
+                </div>
+            </section>
+        </div>
+        
+        <script src="script.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/ScrollToPlugin.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/tsparticles-slim@2.0.6/tsparticles.slim.bundle.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
+    </body>
+</html>

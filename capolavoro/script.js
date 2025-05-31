@@ -212,7 +212,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // Spread animation function
     function spreadWave(startRow, startCol, targetColor, reverse = false) {
         const visited = new Set();
         const queue = [{ row: startRow, col: startCol, step: 0 }];
@@ -277,5 +276,15 @@ document.addEventListener("DOMContentLoaded", () => {
             spreadWave(row, col, nextColor, false);
             colorIndex = (colorIndex + 1) % colors.length;
         }
+    });
+
+    const scrollButton = document.getElementById("hopButton");
+
+    scrollButton.addEventListener("click", () => {
+        window.scrollBy({
+            top: 800,
+            left: 0,
+            behavior: "smooth"
+        });
     });
 });
