@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
         },
         move: {
         enable: true,
-        speed: 0.3,     // più lento per movimento generale
+        speed: 0.3,
         direction: "none",
         outModes: { default: "bounce" },
         random: true,
@@ -92,7 +92,6 @@ document.addEventListener("DOMContentLoaded", () => {
             y <= tileRect.bottom;
 
             if (!isInTileWrapper) {
-            // Use tsparticles' internal mouse position (already scaled correctly)
             const pos = container.interactivity.mouse.position;
             if (pos) {
                 container.particles.push(4, { position: { x: pos.x, y: pos.y } });
@@ -175,7 +174,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const colors = ['orange', 'mediumseagreen', 'purple', 'tomato', '#3498db', 'yellow', 'magenta'];
     let colorIndex = 0;
 
-    // Create grid and store references
     for (let row = 0; row < rows; row++) {
         tiles[row] = [];
         for (let col = 0; col < cols; col++) {
@@ -189,7 +187,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // Hover effect logic
     for (let row = 0; row < rows; row++) {
         for (let col = 0; col < cols; col++) {
             const tile = tiles[row][col];
